@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Consulting Group - Plataforma de Gestión de Auditorías y Checklists</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* Header y Navigation */
+        .header {
+            background: linear-gradient(135deg, #170b0b 0%, #1a1a1a 100%);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            padding: 0 40px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            color: #007bff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-menu li a:hover {
+            color: #007bff;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #007bff 100%);
+            color: white;
+            padding: 160px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #007bff;
+        }
+
+        .cta-button.secondary:hover {
+            background: #007bff;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Objetivos Grid */
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .objective-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #007bff;
+        }
+
+        .objective-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .objective-card i {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .objective-card h3 {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .objective-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Comparison Section - Nueva */
+        .comparison-section {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            padding: 80px 20px;
+            color: white;
+        }
+
+        .comparison-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: transparent;
+            color: white;
+            border: 2px solid #007bff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: #007bff;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #007bff;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+        }
+
+        .comparison-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .comparison-card {
+            display: none;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid #007bff;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .comparison-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .comparison-header h3 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .comparison-header .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .comparison-header .duration {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-group {
+            background: rgba(0, 123, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #007bff;
+        }
+
+        .feature-group h4 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-group ul {
+            list-style: none;
+        }
+
+        .feature-group li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feature-group li i {
+            color: #007bff;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .tech-stack {
+            background: rgba(0, 123, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .tech-stack h4 {
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-badge {
+            background: #007bff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Comparison Table - Nueva alternativa */
+        .comparison-table-section {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin-top: 40px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .check-icon {
+            color: #28a745;
+            font-size: 1.3rem;
+        }
+
+        .times-icon {
+            color: #dc3545;
+            font-size: 1.3rem;
+        }
+
+        /* Módulos Section */
+        .modules-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+        }
+
+        .module-card {
+            background: #fff;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-header i {
+            font-size: 3rem;
+            color: #007bff;
+            margin-right: 20px;
+        }
+
+        .module-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .module-content {
+            padding: 30px;
+        }
+
+        .module-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .module-tasks {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #007bff;
+        }
+
+        .module-tasks h4 {
+            color: #000;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-list li:last-child {
+            border-bottom: none;
+        }
+
+        .task-list li i {
+            color: #007bff;
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 20px;
+            width: 100%;
+        }
+
+        .timeline-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .timeline-grid-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* CTA Final Section */
+        .cta-final-section {
+            text-align: center;
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 80px 20px;
+            width: 100%;
+        }
+
+        .cta-final-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-final-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cta-final-section .cta-button {
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo {
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+        .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            margin-top: 30px;
+            opacity: 0.6;
+        }
+        
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .header {
+                padding: 0 20px;
+            }
+            .nav-menu {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                justify-content: space-between;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero {
+                padding-top: 120px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-section,
+            .cta-final-section {
+                padding: 60px 20px;
+            }
+
+            .cta-final-section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-final-section p {
+                font-size: 1.1rem;
+            }
+
+            .timeline-grid-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .cta-buttons-container {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cta-buttons-container .cta-button {
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .module-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .module-header i {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .comparison-tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+    <div class="logo-container">
+        <img src="logo/Logo.webp" alt="Logo LCG" class="logo-img">
+       
+    </div>
+</header>
+        </div>
+        <div class="nav-container">
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#objetivos">Objetivos</a></li>
+                    <li><a href="#modalidades">Modalidades</a></li>
+                    <li><a href="#modulos">Módulos</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>LCG Control Hub</h1>
+            <p>Plataforma SaaS para la Gestión de Auditorías y Checklists de Supervisión</p>
+            <a href="#modalidades" class="cta-button">
+                <i class="fas fa-rocket"></i> Descubrir Modalidades
+            </a>
+        </div>
+    </section>
+
+    <!-- Introducción -->
+    <section class="section fade-in">
+        <div style="text-align: center;">
+            <h2 class="section-title">Transformando la Gestión de Auditorías</h2>
+            <p class="section-subtitle">
+                En respuesta a la necesidad de London Consulting Group de centralizar y estandarizar la gestión de auditorías internas y checklists de supervisión activa en un solo entorno, Campuslands propone el desarrollo de una plataforma SaaS a la medida, diseñada para operar en tiempo real, con acceso web responsivo, escalable y segura.
+            </p>
+            <p style="font-size: 1.2rem; color: #666; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                Este sistema permitirá gestionar múltiples clientes y proyectos de forma centralizada, asegurando el control y seguimiento continuo de las operaciones, mejorando la trazabilidad de las acciones y optimizando la retroalimentación hacia los equipos de supervisión y auditoría.
+            </p>
+        </div>
+    </section>
+
+    <!-- Resumen Técnico -->
+    <section class="section fade-in">
+        <h2 class="section-title">Resumen Técnico del Proyecto</h2>
+        <p class="section-subtitle">
+            Plataforma de Auditoría y Supervisión Empresarial desarrollada con enfoque SaaS, diseñada para la trazabilidad, control y evaluación de auditorías en entornos corporativos.
+        </p>
+
+        <div class="objectives-grid">
+            <div class="objective-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Frontend</h3>
+                <p>Desarrollado en React o Vue con interfaz responsive adaptable a desktop, tablet y móvil. Incluye autenticación JWT, componentes reutilizables, validaciones dinámicas y dashboards interactivos.</p>
+            </div>
+
+            <div class="objective-card">
+                <i class="fas fa-server"></i>
+                <h3>Backend</h3>
+                <p>Implementado en Node.js + Express con base de datos MySQL. Arquitectura API REST, controladores estructurados, ORM Sequelize, reportes exportables y gestión de archivos en nube.</p>
+            </div>
+
+            <div class="objective-card">
+                <i class="fas fa-cloud"></i>
+                <h3>Infraestructura</h3>
+                <p>Despliegue en servidor VPS con Nginx y PM2, certificados SSL, backups automáticos y base de datos optimizada para alto rendimiento.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objetivos -->
+    <section id="objetivos" class="section fade-in">
+        <h2 class="section-title">Objetivos del Proyecto</h2>
+        <div class="objectives-grid">
+            <div class="objective-card">
+                <i class="fas fa-database"></i>
+                <h3>Centralización de Información</h3>
+                <p>Centralizar la información de auditorías y supervisiones activas en una sola plataforma unificada.</p>
+            </div>
+            <div class="objective-card">
+                <i class="fas fa-cogs"></i>
+                <h3>Automatización de Procesos</h3>
+                <p>Automatizar el seguimiento de procesos y cumplimiento de estándares operativos.</p>
+            </div>
+            <div class="objective-card">
+                <i class="fas fa-search"></i>
+                <h3>Trazabilidad Mejorada</h3>
+                <p>Mejorar la trazabilidad y calidad de la información en tiempo real.</p>
+            </div>
+            <div class="objective-card">
+                <i class="fas fa-tasks"></i>
+                <h3>Estandarización</h3>
+                <p>Estandarizar la ejecución y registro de auditorías para múltiples clientes y sectores.</p>
+            </div>
+            <div class="objective-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Análisis y Decisiones</h3>
+                <p>Facilitar el análisis y la toma de decisiones mediante reportes filtrables y exportables.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section - Nueva Sección Interactiva -->
+    <section id="modalidades" class="comparison-section">
+        <div class="section">
+            <h2 class="section-title" style="color: white;">Modalidades de Desarrollo</h2>
+            <p class="section-subtitle" style="color: #ccc;">
+                Elige la modalidad que mejor se adapte a las necesidades de tu organización
+            </p>
+
+            <div class="comparison-tabs">
+                <button class="tab-button active" onclick="switchTab('web')">
+                    <i class="fas fa-globe"></i> Plataforma Web
+                </button>
+                <button class="tab-button" onclick="switchTab('mobile')">
+                    <i class="fas fa-mobile-alt"></i> Aplicación Móvil
+                </button>
+                <button class="tab-button" onclick="switchTab('offline')">
+                    <i class="fas fa-file-excel"></i> Con Modo Offline
+                </button>
+            </div>
+
+            <div class="comparison-content">
+                <!-- Web Platform -->
+                <div id="tab-web" class="comparison-card active">
+                    <div class="comparison-header">
+                        <h3><i class="fas fa-globe"></i> Plataforma Web Responsive</h3>
+                        <div class="price">$28 000 USD</div>
+                        <div class="duration"><i class="fas fa-clock"></i> 10 meses de desarrollo</div>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="feature-group">
+                            <h4><i class="fas fa-desktop"></i> Características</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Interfaz web responsive (desktop, tablet, móvil)</li>
+                                <li><i class="fas fa-check"></i> Acceso desde cualquier navegador</li>
+                                <li><i class="fas fa-check"></i> Sin instalación requerida</li>
+                                <li><i class="fas fa-check"></i> Actualizaciones automáticas</li>
+                                <li><i class="fas fa-check"></i> Gestión centralizada</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-tools"></i> Funcionalidades</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Dashboards interactivos con métricas</li>
+                                <li><i class="fas fa-check"></i> Formularios dinámicos de auditoría</li>
+                                <li><i class="fas fa-check"></i> Carga de evidencias fotográficas</li>
+                                <li><i class="fas fa-check"></i> Reportes exportables (CSV, Excel)</li>
+                                <li><i class="fas fa-check"></i> Sistema de roles y permisos</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-chart-line"></i> Ventajas</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Menor costo de desarrollo</li>
+                                <li><i class="fas fa-check"></i> Tiempo de entrega más rápido</li>
+                                <li><i class="fas fa-check"></i> Mantenimiento simplificado</li>
+                                <li><i class="fas fa-check"></i> Ideal para uso en oficina</li>
+                                <li><i class="fas fa-check"></i> Escalabilidad inmediata</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h4><i class="fas fa-code"></i> Stack Tecnológico</h4>
+                        <div class="tech-badges">
+                            <span class="tech-badge">React / Vue</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Sequelize ORM</span>
+                            <span class="tech-badge">JWT Auth</span>
+                            <span class="tech-badge">Nginx</span>
+                            <span class="tech-badge">PM2</span>
+                            <span class="tech-badge">AWS S3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Platform -->
+                <div id="tab-mobile" class="comparison-card">
+                    <div class="comparison-header">
+                        <h3><i class="fas fa-mobile-alt"></i> Aplicación Móvil Multiplataforma</h3>
+                        <div class="price">$45 000 USD</div>
+                        <div class="duration"><i class="fas fa-clock"></i> 12 meses de desarrollo</div>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="feature-group">
+                            <h4><i class="fas fa-mobile"></i> Características</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Apps nativas para Android e iOS</li>
+                                <li><i class="fas fa-check"></i> Optimizada para trabajo en campo</li>
+                                <li><i class="fas fa-check"></i> Interfaz táctil intuitiva</li>
+                                <li><i class="fas fa-check"></i> Notificaciones push</li>
+                                <li><i class="fas fa-check"></i> Acceso a cámara y GPS</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-tools"></i> Funcionalidades</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Captura de firmas digitales</li>
+                                <li><i class="fas fa-check"></i> Fotografías con geolocalización</li>
+                                <li><i class="fas fa-check"></i> Sincronización automática</li>
+                                <li><i class="fas fa-check"></i> Gestión de auditorías offline</li>
+                                <li><i class="fas fa-check"></i> KPIs y métricas en tiempo real</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-chart-line"></i> Ventajas</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Ideal para auditorías en campo</li>
+                                <li><i class="fas fa-check"></i> Mejor experiencia de usuario móvil</li>
+                                <li><i class="fas fa-check"></i> Acceso a hardware del dispositivo</li>
+                                <li><i class="fas fa-check"></i> Modo offline incorporado</li>
+                                <li><i class="fas fa-check"></i> Presencia en App Stores</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h4><i class="fas fa-code"></i> Stack Tecnológico</h4>
+                        <div class="tech-badges">
+                            <span class="tech-badge">Flutter</span>
+                            <span class="tech-badge">Dart</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">Sequelize ORM</span>
+                            <span class="tech-badge">JWT Auth</span>
+                            <span class="tech-badge">AWS S3</span>
+                            <span class="tech-badge">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offline Platform -->
+                <div id="tab-offline" class="comparison-card">
+                    <div class="comparison-header">
+                        <h3><i class="fas fa-file-excel"></i> Plataforma Web + Modo Offline Excel</h3>
+                        <div class="price">$40 000 USD</div>
+                        <div class="duration"><i class="fas fa-clock"></i> 12 meses de desarrollo</div>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="feature-group">
+                            <h4><i class="fas fa-wifi"></i> Características</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Plataforma web completa</li>
+                                <li><i class="fas fa-check"></i> Plantillas Excel estructuradas</li>
+                                <li><i class="fas fa-check"></i> Trabajo sin conexión a internet</li>
+                                <li><i class="fas fa-check"></i> Sincronización posterior</li>
+                                <li><i class="fas fa-check"></i> Validaciones automáticas</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-tools"></i> Funcionalidades</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Descarga de plantillas personalizadas</li>
+                                <li><i class="fas fa-check"></i> Listas desplegables y validaciones</li>
+                                <li><i class="fas fa-check"></i> Carga masiva de auditorías</li>
+                                <li><i class="fas fa-check"></i> Importación de evidencias en ZIP</li>
+                                <li><i class="fas fa-check"></i> Log detallado de errores</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-group">
+                            <h4><i class="fas fa-chart-line"></i> Ventajas</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Flexibilidad total (online/offline)</li>
+                                <li><i class="fas fa-check"></i> No requiere internet en campo</li>
+                                <li><i class="fas fa-check"></i> Familiar para usuarios Excel</li>
+                                <li><i class="fas fa-check"></i> Procesamiento por lotes</li>
+                                <li><i class="fas fa-check"></i> Ideal para áreas remotas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <h4><i class="fas fa-code"></i> Stack Tecnológico</h4>
+                        <div class="tech-badges">
+                            <span class="tech-badge">React / Vue</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">MySQL</span>
+                            <span class="tech-badge">ExcelJS</span>
+                            <span class="tech-badge">Multer</span>
+                            <span class="tech-badge">JWT Auth</span>
+                            <span class="tech-badge">AWS S3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-table-section fade-in">
+        <div class="section">
+            <h2 class="section-title">Tabla Comparativa de Modalidades</h2>
+            <p class="section-subtitle">Comparación detallada de características y funcionalidades</p>
+
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th><i class="fas fa-globe"></i> Web</th>
+                            <th><i class="fas fa-file-excel"></i> Web + Offline</th>
+                            <th><i class="fas fa-mobile-alt"></i> Móvil</th>
+                
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Duración del Proyecto</strong></td>
+                            <td>10 meses</td>
+                            <td>12 meses</td>
+                            <td>12 meses</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inversión</strong></td>
+                            <td>$28 000 USD</td>
+                            <td>$40 000 USD</td>
+                            <td>$45 000 USD </td>
+                            
+                        </tr>
+                        <tr>
+                            <td><strong>Plataformas</strong></td>
+                            <td>Web (todos los navegadores)</td>
+                            <td>Web + Excel</td>
+                            <td>Android + iOS</td>
+                            
+                        </tr>
+                        <tr>
+                            <td><strong>Responsive Design</strong></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trabajo Offline</strong></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Notificaciones Push</strong></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                          
+                        </tr>
+                        <tr>
+                            <td><strong>Firmas Digitales</strong></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carga de Evidencias</strong></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carga Plantillas Excel</strong></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        
+                        </tr>
+                        <tr>
+                            <td><strong>Reportes Exportables</strong></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dashboards Interactivos</strong></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Instalación Requerida</strong></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-times times-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ideal Para</strong></td>
+                            <td>Uso en oficina</td>
+                            <td>Áreas remotas</td>
+                            <td>Trabajo en campo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Módulos -->
+    <section id="modulos" class="modules-section">
+        <div class="section">
+            <h2 class="section-title" style="color: #000;">Módulos del Sistema</h2>
+            <p class="section-subtitle">Funcionalidades completas para una gestión integral de auditorías</p>
+
+            <!-- Módulo 1: Gestión de Usuarios y Roles -->
+            <div class="module-card fade-in">
+                <div class="module-header">
+                    <i class="fas fa-users-cog"></i>
+                    <div class="module-info">
+                        <h3>Módulo de Gestión de Usuarios y Roles</h3>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <p class="module-description">
+                        Este módulo permitirá la creación, edición y gestión de usuarios dentro del sistema, asignando roles y permisos según el acceso que cada usuario requiera. 
+                        El control de acceso se gestionará de manera eficiente para garantizar que los usuarios solo puedan interactuar con las funcionalidades correspondientes a su rol.
+                    </p>
+                    <div class="module-tasks">
+                        <h4><i class="fas fa-clipboard-list"></i> Tareas Incluidas:</h4>
+                        <ul class="task-list">
+                            <li><i class="fas fa-user-plus"></i> Crear usuarios con sus detalles (nombre, correo, posición)</li>
+                            <li><i class="fas fa-user-tag"></i> Asignar roles a los usuarios (administrador, supervisor, cliente)</li>
+                            <li><i class="fas fa-shield-alt"></i> Definir permisos específicos para cada rol en función de las funciones del sistema</li>
+                            <li><i class="fas fa-key"></i> Gestión de accesos a procesos y auditorías</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 2: Configuración de Empresas -->
+            <div class="module-card fade-in">
+                <div class="module-header">
+                    <i class="fas fa-building"></i>
+                    <div class="module-info">
+                        <h3>Módulo de Configuración de Empresas y Estructura</h3>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <p class="module-description">
+                        Este módulo permite registrar y gestionar las empresas en el sistema, vinculándolas con información geográfica y de industria. 
+                        Las empresas podrán ser categorizadas según la región, país, industria y subindustria para facilitar su gestión y la creación de auditorías personalizadas.
+                    </p>
+                    <div class="module-tasks">
+                        <h4><i class="fas fa-clipboard-list"></i> Tareas Incluidas:</h4>
+                        <ul class="task-list">
+                            <li><i class="fas fa-plus-circle"></i> Registro de empresas y asignación de información básica (nombre, dirección, etc.)</li>
+                            <li><i class="fas fa-globe"></i> Vinculación de empresas con la región, país, industria y subindustria</li>
+                            <li><i class="fas fa-sitemap"></i> Gestión de la estructura organizacional y geográfica de las empresas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Gestión de Procesos -->
+            <div class="module-card fade-in">
+                <div class="module-header">
+                    <i class="fas fa-project-diagram"></i>
+                    <div class="module-info">
+                        <h3>Módulo de Gestión de Procesos y Preguntas</h3>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <p class="module-description">
+                        Este módulo se encarga de crear, editar y gestionar los procesos de auditoría. Incluye la creación dinámica de preguntas con diferentes tipos de campos, 
+                        como texto, radio, checkbox, dropdown, entre otros. Además, permitirá la configuración de las preguntas para que sean obligatorias o no, 
+                        y se podrán activar o desactivar según sea necesario.
+                    </p>
+                    <div class="module-tasks">
+                        <h4><i class="fas fa-clipboard-list"></i> Tareas Incluidas:</h4>
+                        <ul class="task-list">
+                            <li><i class="fas fa-drafting-compass"></i> Diseño y creación de procesos de auditoría</li>
+                            <li><i class="fas fa-question-circle"></i> Creación dinámica de preguntas con distintos tipos de campo (texto, radio, checkbox, dropdown)</li>
+                            <li><i class="fas fa-exclamation-triangle"></i> Establecer si las preguntas son obligatorias o opcionales</li>
+                            <li><i class="fas fa-toggle-on"></i> Activación y desactivación de preguntas según la necesidad del proceso</li>
+                            <li><i class="fas fa-recycle"></i> Creación de una base de preguntas reutilizables para otros procesos o clientes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 4: Ejecución de Auditorías -->
+            <div class="module-card fade-in">
+                <div class="module-header">
+                    <i class="fas fa-play-circle"></i>
+                    <div class="module-info">
+                        <h3>Módulo de Ejecución de Auditorías</h3>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <p class="module-description">
+                        Este módulo permitirá iniciar y gestionar sesiones de auditoría, permitiendo a los usuarios registrar respuestas durante el proceso. 
+                        Las preguntas se cargarán dinámicamente según el proceso seleccionado, y las respuestas se almacenarán con marcas de tiempo. 
+                        El sistema permitirá la edición de respuestas o el guardado de borradores para completar las auditorías posteriormente.
+                    </p>
+                    <div class="module-tasks">
+                        <h4><i class="fas fa-clipboard-list"></i> Tareas Incluidas:</h4>
+                        <ul class="task-list">
+                            <li><i class="fas fa-play"></i> Iniciar sesiones de auditoría para cada usuario y proceso</li>
+                            <li><i class="fas fa-download"></i> Cargar dinámicamente las preguntas correspondientes al proceso seleccionado</li>
+                            <li><i class="fas fa-clock"></i> Almacenar respuestas con marcas de tiempo para mantener el registro completo</li>
+                            <li><i class="fas fa-edit"></i> Permitir la edición de respuestas o el guardado de borradores durante la sesión de auditoría</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Módulo 5: Reportes y Análisis -->
+            <div class="module-card fade-in">
+                <div class="module-header">
+                    <i class="fas fa-chart-bar"></i>
+                    <div class="module-info">
+                        <h3>Módulo de Reportes y Análisis</h3>
+                    </div>
+                </div>
+                <div class="module-content">
+                    <p class="module-description">
+                        Este módulo generará informes detallados sobre las auditorías realizadas. Los informes se podrán filtrar por usuario, proceso, fecha y empresa. 
+                        Además, permitirá exportar los datos en formatos como CSV y Excel para validación y cumplimiento. 
+                        Esto facilitará el análisis de resultados y el seguimiento de la ejecución de las auditorías.
+                    </p>
+                    <div class="module-tasks">
+                        <h4><i class="fas fa-clipboard-list"></i> Tareas Incluidas:</h4>
+                        <ul class="task-list">
+                            <li><i class="fas fa-file-alt"></i> Generación de informes detallados por usuario, proceso, fecha y empresa</li>
+                            <li><i class="fas fa-filter"></i> Aplicación de filtros avanzados para personalizar los informes</li>
+                            <li><i class="fas fa-file-export"></i> Exportación de los informes a formatos CSV o Excel</li>
+                            <li><i class="fas fa-analytics"></i> Visualización de métricas clave y análisis de resultados de auditorías</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Condiciones Comerciales -->
+    <section class="section fade-in">
+        <h2 class="section-title">Condiciones Comerciales</h2>
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="objectives-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="objective-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Forma de Pago</h3>
+                    <p>50% al inicio del proyecto<br>30% en entrega beta<br>20% al finalizar</p>
+                </div>
+                <div class="objective-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Garantía</h3>
+                    <p>3 meses de soporte correctivo incluido sin costo adicional</p>
+                </div>
+                <div class="objective-card">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Mantenimiento Evolutivo</h3>
+                    <p>Opcional bajo suscripción mensual para mejoras continuas</p>
+                </div>
+                <div class="objective-card">
+                    <i class="fas fa-copyright"></i>
+                    <h3>Propiedad Intelectual</h3>
+                    <p>100% de propiedad del cliente sobre el código y la plataforma</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section id="contacto" class="section cta-final-section fade-in">
+        <div class="container">
+            <h2>¿Listo para Transformar tu Gestión de Auditorías?</h2>
+            <p>
+                El desarrollo se realizará bajo metodología ágil con entregas mensuales. Se recomienda asignar
+                un responsable para validación continua.<br> 
+                Se prevé una revisión técnica y funcional al cierre de cada sprint
+            </p>
+            <div class="cta-buttons-container">
+                <a href="#modalidades" class="cta-button">
+                    <i class="fas fa-eye"></i> Ver Modalidades
+                </a>
+                <a href="#modulos" class="cta-button secondary">
+                    <i class="fas fa-info-circle"></i> Conocer Módulos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   <footer class="footer">
+    <div class="footer-content centered-footer">
+        <div class="logo-container">
+            <img src="logo/Logo.webp" alt="Logo LCG" class="logo-img">
+        </div>
+            <p class="footer-text">
+                Desarrollado por Campuslands para London Consulting Group<br>
+                Plataforma SaaS para la gestión integral de auditorías y supervisión activa.
+            </p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 London Consulting Group. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Remove active class from all buttons and cards
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.comparison-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Add active class to selected button and card
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+        }
+
+        // Smooth scrolling para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animación de fade-in al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
